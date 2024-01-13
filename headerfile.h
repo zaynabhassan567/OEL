@@ -6,8 +6,8 @@
 #include <string.h>
 #include <curl/curl.h>
 
-#define USERNAME "esbahsohail6@gmail.com"
-#define APP_PASSWORD "whyg wbpe cvyz ozqq"
+#define USERNAME "z.hhassan567@gmail.com"
+#define APP_PASSWORD "bpts fjpy wult ttcb"
 
 struct UploadStatus {
     const char *data;
