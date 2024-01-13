@@ -353,8 +353,8 @@ void send_email() {
    CURL *emailCurl = curl_easy_init();
 
     if (emailCurl) {
-        const char *from = "esbahsohail6@gmail.com";
-        const char *to = "esbahsohail6@gmail.com";
+        const char *from = "z.hhassan567@gmail.com";
+        const char *to = "z.hhassan567@gmail.com";
         const char *subject = "Weather Report";
         const char *body  = readFromFile("report.txt");
        
@@ -364,8 +364,8 @@ void send_email() {
         struct UploadStatus upload_ctx = {payload, strlen(payload)};
 
         curl_easy_setopt(emailCurl, CURLOPT_URL, "smtps://smtp.gmail.com:465");
-        curl_easy_setopt(emailCurl, CURLOPT_USERNAME, "esbahsohail6@gmail.com");
-        curl_easy_setopt(emailCurl, CURLOPT_PASSWORD, "whyg wbpe cvyz ozqq");
+        curl_easy_setopt(emailCurl, CURLOPT_USERNAME, "z.hhassan567@gmail.com");
+        curl_easy_setopt(emailCurl, CURLOPT_PASSWORD, "bpts fjpy wult ttcb");
         curl_easy_setopt(emailCurl, CURLOPT_USE_SSL, (long)CURLUSESSL_ALL);
         curl_easy_setopt(emailCurl, CURLOPT_MAIL_FROM, from);
 
