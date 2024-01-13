@@ -21,6 +21,18 @@ Humidity: 26
 Temperature: 294.23
 Wind Speed: 3.6
 Pressure: 1022
+
+Environmental Data
+------------------
+Country: PK
+Time Zone: 18000
+Latitude: 24.861
+Longitude: 66.9905
+Humidity: 26
+Temperature: 294.23
+Wind Speed: 3.6
+Pressure: 1022
+Visibility: 5000
 Visibility: 5000
 
 Environmental Data
