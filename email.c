@@ -1,5 +1,7 @@
 #include "headerfile.h"
 
+#define MAX_COUNT 5
+
 int main() {
     CURL *curl;
     CURLcode res;
@@ -24,30 +26,58 @@ int main() {
             char *raw_filename = "raw.txt";
             char *processed_filename = "processed.txt";
             char *report_filename = "report.txt";
+            char *run_times_filename = "run_time.txt";
 
             saveToFile(chunk.memory, raw_filename);
 
-            FILE *processedFile = fopen(processed_filename, "a");
-            if (processedFile != NULL) {
-                processEnvironmentData(chunk.memory, processedFile);
-                fclose(processedFile);
+            FILE *runTimesFile = fopen(run_times_filename, "r");
+            if (runTimesFile != NULL) {
+                int count;
+                fscanf(runTimesFile, "%d", &count);
+                fclose(runTimesFile);
 
-                // Rewind the file pointer to the beginning
-                processedFile = fopen(processed_filename, "r");
-                if (processedFile != NULL) {
-                    FILE *reportFile = fopen(report_filename, "w");
-                    if (reportFile != NULL) {
-                        calculateAverage(processedFile, reportFile);
-                        fclose(reportFile);
-                    } else {
-                        fprintf(stderr, "Error: Unable to open file %s for writing\n", report_filename);
-                    }
-                    fclose(processedFile);
+                if (count < MAX_COUNT) {
+                    count++;
                 } else {
-                    fprintf(stderr, "Error: Unable to open file %s for reading\n", processed_filename);
+                    // Reset count to 0 when it reaches MAX_COUNT
+                    count = 0;
+                    FILE *file1 = fopen("processed.txt", "w");
+                    FILE *file2 = fopen("raw.txt", "w");
+            
+                }
+
+                runTimesFile = fopen(run_times_filename, "w");
+                if (runTimesFile != NULL) {
+                    fprintf(runTimesFile, "%d", count);
+                    fclose(runTimesFile);
+
+                    FILE *processedFile = fopen(processed_filename, "a");
+                    if (processedFile != NULL) {
+                        processEnvironmentData(chunk.memory, processedFile);
+                        fclose(processedFile);
+
+                        // Rewind the file pointer to the beginning
+                        processedFile = fopen(processed_filename, "r");
+                        if (processedFile != NULL) {
+                            FILE *reportFile = fopen(report_filename, "w");
+                            if (reportFile != NULL) {
+                                calculateAverage(processedFile, reportFile);
+                                fclose(reportFile);
+                            } else {
+                                fprintf(stderr, "Error: Unable to open file %s for writing\n", report_filename);
+                            }
+                            fclose(processedFile);
+                        } else {
+                            fprintf(stderr, "Error: Unable to open file %s for reading\n", processed_filename);
+                        }
+                    } else {
+                        fprintf(stderr, "Error: Unable to open file %s for writing\n", processed_filename);
+                    }
+                } else {
+                    fprintf(stderr, "Error: Unable to open file %s for writing\n", run_times_filename);
                 }
             } else {
-                fprintf(stderr, "Error: Unable to open file %s for writing\n", processed_filename);
+                fprintf(stderr, "Error: Unable to open file %s for reading\n", run_times_filename);
             }
 
             // Option to read the text files
@@ -65,21 +95,6 @@ int main() {
         curl_easy_cleanup(curl);
     }
 
-// Send email
-    
-   
-    // Save the report to a file
-    //char *reportData = readFromFile("report.txt");
-    //if (reportData != NULL) {
-        // Print the report data for debugging
-      //  printf("Report Data:\n%s\n", reportData);
-        //sendEmail(reportData);
-
-        //free(reportData);
-    //} else {
-      //  fprintf(stderr, "Error: Unable to read report data from file report.txt\n");
-    
     curl_global_cleanup();
     return 0;
 }
-	
